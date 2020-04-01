@@ -1,17 +1,16 @@
 <template>
   <div id="app">
 
-    <Index/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Index from '@/page/index.vue'
 
 export default {
   name: 'App',
   components: {
-    Index
+
   }
 }
 </script>
@@ -20,6 +19,7 @@ export default {
   @import "~@/assets/styles/base/normalize.css";
   @import "~@/assets/styles/base/base.css";
   @import "~@/assets/styles/base/variable.styl";
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
