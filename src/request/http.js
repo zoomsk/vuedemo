@@ -4,12 +4,13 @@
 import axios from 'axios';
 import QS from 'qs';
 import { Toast } from 'vant';
-import router from 'vue-router'
+import router from '@/router'
 import store from '../store/index'
 
 // 环境的切换
 if (process.env.NODE_ENV == 'development') {
-    axios.defaults.baseURL = 'http://test.keydom.com.cn/xxt/';
+    //axios.defaults.baseURL = 'http://test.keydom.com.cn/xxt/';
+    axios.defaults.baseURL = '';//mockjs
 } else if (process.env.NODE_ENV == 'debug') {
     axios.defaults.baseURL = '';
 } else if (process.env.NODE_ENV == 'production') {
@@ -52,9 +53,8 @@ axios.interceptors.response.use(
                 // 未登录则跳转登录页面，并携带当前页面的路径
                 // 在登录成功后返回当前页面，这一步需要在登录页操作。
                 case 401:
-                    router.replace({
-                        path: '/login',
-                        query: { redirect: router.currentRoute.fullPath }
+                    router.push({
+                        name: 'login',
                     });
                     break;
                 // 403 token过期
@@ -72,11 +72,8 @@ axios.interceptors.response.use(
                     store.commit('loginSuccess', null);
                     // 跳转登录页面，并将要浏览的页面fullPath传过去，登录成功后跳转需要访问的页面
                     setTimeout(() => {
-                        router.replace({
-                            path: '/login',
-                            query: {
-                                redirect: router.currentRoute.fullPath
-                            }
+                        router.push({
+                            name: 'login',
                         });
                     }, 1000);
                     break;
